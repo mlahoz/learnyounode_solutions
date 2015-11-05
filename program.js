@@ -1,4 +1,5 @@
 var http = require('http');
+var concat = require('concat-stream');
 
 if (process.argv.length === 3) {
 
@@ -6,10 +7,10 @@ if (process.argv.length === 3) {
 
     http.get(url, function (response) {
 
-	response.setEncoding('utf8');
+	response.pipe(concat(function (data) {
+	    console.log(data.length);
+	    console.log(data.toString());
 
-	response.on('data', function (data) {
-	    console.log(data);
-	});
-});
+	}));
+    });
 }
