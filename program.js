@@ -1,18 +1,15 @@
-var filtered_ls = require('./module');
+var http = require('http');
 
-if (process.argv.length == 4) {
+if (process.argv.length === 3) {
 
-    var dirpath = process.argv[2];
-    var extension = process.argv[3];
+    var url = process.argv[2];
 
-    filtered_ls(dirpath, extension, function (error, list) {
+    http.get(url, function (response) {
 
-	if (!error) {
+	response.setEncoding('utf8');
 
-	    list.forEach(function (item) {
-		console.log(item);
-	    });
-	}
-
-    });
+	response.on('data', function (data) {
+	    console.log(data);
+	});
+});
 }
