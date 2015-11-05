@@ -1,11 +1,20 @@
 var fs = require('fs');
+var path = require('path');
 
-if (process.argv.length > 2) {
+if (process.argv.length == 4) {
 
-    var filename = process.argv[2];
-    fs.readFile(filename, 'utf8', function (error, data) {
+    var dirpath = process.argv[2];
+    var extension = "." + process.argv[3];
+
+    fs.readdir(dirpath, function (error, list) {
+
 	if (!error) {
-	    console.log(data.split('\n').length - 1);
+	    list.filter(function (item) {
+		return path.extname(item) === extension;
+	    }).forEach(function (item) {
+		console.log(item);
+	    });
 	}
     });
+
 }
