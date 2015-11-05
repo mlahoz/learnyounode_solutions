@@ -1,3 +1,8 @@
-console.log(process.argv.slice(2).reduce(function (acc, next) {
-    return acc + Number(next);
-}, 0));
+var fs = require('fs');
+
+if (process.argv.length > 2) {
+
+    var filename = process.argv[2];
+    var lines = fs.readFileSync(filename).toString().split('\n');
+    console.log(lines.length - 1);
+}
